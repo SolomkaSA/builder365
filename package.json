@@ -2,7 +2,7 @@
 	"name": "builder365solution",
 	"displayName": "builder365solution",
 	"description": "",
-	"version": "0.0.2",
+	"version": "0.0.1",
 	"publisher": "SolomkaSA",
 	"engines": {
 		"vscode": "^1.67.0"
@@ -19,6 +19,28 @@
 			{
 				"command": "builder365solution.helloWorld",
 				"title": "Hello World"
+			}
+		],
+		"configuration": [
+			{
+				"title": "Build Dynamics CRM solution config",
+				"properties": {
+					"Build.SolutionName": {
+						"type": "string",
+						"default": "",
+						"description": "Set solution name"
+					},
+					"Build.ShemaNameFileJs": {
+						"type": "string",
+						"default": "",
+						"description": "Shema name file JS"
+					},
+					"Build.ProductionJSPath": {
+						"type": "string",
+						"default": "",
+						"description": "Set production js path"
+					}
+				}
 			}
 		]
 	},
