@@ -17,7 +17,6 @@ export function activate(context: vscode.ExtensionContext) {
 	const solutionUniqueName = configuration.get('Build.SolutionName');
 	const schemaNameFile = configuration.get('Build.ShemaNameFileJs');
 	const productionJSPath = configuration.get('Build.ProductionJSPath');
-	vscode.window.showInformationMessage('Hello World from Build SolutionCRM!');
 
 	let runBuildSolution = 'C:\\CRMDeveloperTools\\VsCodeExtension\\CreateSolutionWIthResources.ps1 '
 		+ '-SolutionUniqueName "' + solutionUniqueName + '"'
@@ -35,8 +34,14 @@ export function activate(context: vscode.ExtensionContext) {
 	let disposable = vscode.commands.registerCommand('builder365solution.helloWorld', () => {
 		// The code you place here will be executed every time your command is executed
 		// Display a message box to the user
-		var t = pss.process([runBuildSolution, runPackSolution]);
-		console.log('test ' + t);
+		var t1 = pss.process([runBuildSolution]);
+		var t2 = pss.process([runPackSolution]);
+		console.log(t1[0].output);
+		console.log(t2[0].output);
+		// setTimeout(function () {
+		// 	// console.log(t1.toString());
+		// 	// console.log(t2.toString());
+		// }, 5000);
 		vscode.window.showInformationMessage('Hello World from builder365solution!');
 	});
 
