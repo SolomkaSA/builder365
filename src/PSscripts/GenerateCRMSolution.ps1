@@ -1,8 +1,14 @@
 param(
-    [Parameter(Mandatory)][String]$SolutionUniqueName,
-    [Parameter(Mandatory)][String]$SchemaNameFile,
-    [Parameter(Mandatory)][String]$PathToSolutionPack,
-    [Parameter(Mandatory)][String]$ProductionJSPath
+    [Parameter(Mandatory)]
+    [String]$SolutionUniqueName,
+    [Parameter(Mandatory)]
+    [String]$SchemaNameFile,
+    [Parameter(Mandatory)]
+    [String]$PathToSolutionPack,
+    [Parameter(Mandatory)]
+    [String]$ProductionJSPath,
+    [Parameter(Mandatory)]
+    [String]$PartPathToTemplate
 )
 
 $path = "$PathToSolutionPack\Other"
@@ -27,11 +33,12 @@ Get-ChildItem -Path $path2 -Recurse | Remove-Item -force -recurse
 Try
 {
 
-$TemplateSolutionXML = "C:\CRMDeveloperTools\TmpSolution\TemplateSolution\Other\TemplateSolutionXML.xml"
+
+$TemplateSolutionXML = "$PartPathToTemplate\Other\TemplateSolutionXML.xml"
 $TemplateSolutionXMLSave = "$PathToSolutionPack\Other\Solution.xml"
 
 #Copy empty Customizations.xml
-Copy-Item "C:\CRMDeveloperTools\TmpSolution\TemplateSolution\Other\Customizations.xml" "$PathToSolutionPack\Other\Customizations.xml"
+Copy-Item  "$PartPathToTemplate\Other\Customizations.xml" "$PathToSolutionPack\Other\Customizations.xml"
 
 # Create a XML document
 [xml]$xmlDoc = New-Object system.Xml.XmlDocument
@@ -71,7 +78,7 @@ Catch
 
 
 Try {
-$TemplateJsXML = "C:\CRMDeveloperTools\TmpSolution\TemplateSolution\WebResources\TemplateJsXML.xml"
+$TemplateJsXML = "$PartPathToTemplate\WebResources\TemplateJsXML.xml"
 $TemplateJsXMLSave = "$PathToSolutionPack\WebResources\$SchemaNameFile.data.xml"
 
 $newGuid = New-Guid  
@@ -112,7 +119,7 @@ Get-ChildItem -Path $ProductionJSPath -Filter *.js -Recurse -File -Name| Sort-Ob
   if($ItemLenthMB -gt 1)
   {
     Write-Host 'ItemFullPath:'$item '|LengthByte:' $item.Length '|LengthMB:' $ItemLenthMB  'ShortPath:'$_ '|ProductionPath:' $ProductionJSPath '|JoinedPath:'$joinPath
-    Copy-Item "$item"  "$PathToSolutionPack\WebResources\$SchemaNameFile"
+    Copy-Item "$item"  "$PathToSolutionPack\WebResources\$uniqueNameFile"
   }
 
 }

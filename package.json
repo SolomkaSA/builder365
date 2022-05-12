@@ -11,14 +11,14 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:builder365solution.helloWorld"
+		"onCommand:builder365solution.build"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "builder365solution.helloWorld",
-				"title": "Hello World"
+				"command": "builder365solution.build",
+				"title": "Build Dynamics CRM Solution"
 			}
 		],
 		"configuration": [
@@ -39,6 +39,16 @@
 						"type": "string",
 						"default": "",
 						"description": "Set production js path"
+					},
+					"Build.outputSaveZipArchive": {
+						"type": "string",
+						"default": "",
+						"description": "Set output  path for zip solution"
+					},
+					"Build.coreToolCRMsolutionpackager": {
+						"type": "string",
+						"default": "",
+						"description": "Set core tool CRM solution packager path exe"
 					}
 				}
 			}
