@@ -49,6 +49,10 @@ Copy-Item  "$PartPathToTemplate\Other\Customizations.xml" "$PathToSolutionPack\O
 #Set solution name
 $xmlDoc.ImportExportXml.SolutionManifest.UniqueName = $SolutionUniqueName
 
+#Set version build
+$CurrentBuildVersion = Get-Date -Format "yyyy.MM.dd.hhmm"
+$xmlDoc.ImportExportXml.SolutionManifest["Version"].innerText = $CurrentBuildVersion
+
 # Create nwe element and set attributes
 $LocalizedName1 = $xmlDoc.CreateElement("LocalizedName")
 
@@ -71,7 +75,7 @@ $xmlDoc.Save($TemplateSolutionXMLSave)
 }
 Catch
 {
-    # Catch any error
+   #Catch any error
    Write-Host $_.Exception.Message -ForegroundColor Red
 }
 

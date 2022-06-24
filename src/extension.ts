@@ -18,17 +18,9 @@ export function activate(context: vscode.ExtensionContext) {
 
 	const currentEstensionPath = context.extensionPath;
 	const currentTemplatePath = currentEstensionPath + '\\out\\PreparedTemplates\\CRMSolution'
-	let runBuildSolution = currentEstensionPath + '\\out\\PSscripts\\GenerateCRMSolution.ps1'
-		+ ' -SolutionUniqueName "' + solutionUniqueName + '"'
-		+ ' -SchemaNameFile "' + schemaNameFile + '"'
-		+ ' -PathToSolutionPack "' + outputSaveZipArchive + '"'
-		+ ' -ProductionJSPath "' + productionJSPath + '"'
-		+ ' -PartPathToTemplate "' + currentTemplatePath + '"';
+	let runBuildSolution = `${currentEstensionPath}\\out\\PSscripts\\GenerateCRMSolution.ps1 -SolutionUniqueName "${solutionUniqueName}" -SchemaNameFile "${schemaNameFile}" -PathToSolutionPack "${outputSaveZipArchive}" -ProductionJSPath "${productionJSPath}" -PartPathToTemplate "${currentTemplatePath}"`;
 
-	let runPackSolution = coreToolCRMsolutionpackager
-		+ ' /action:Pack '
-		+ ' /zipfile:"' + outputSaveZipArchive + solutionUniqueName + '.zip" '
-		+ ' /folder:"' + outputSaveZipArchive + '"';
+	let runPackSolution = `${coreToolCRMsolutionpackager} /action:Pack  /zipfile:"${outputSaveZipArchive}\\${solutionUniqueName}.zip"  /folder:"${outputSaveZipArchive}"`;
 
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with registerCommand
@@ -38,11 +30,13 @@ export function activate(context: vscode.ExtensionContext) {
 		// Display a message box to the user
 		var t1 = pss.process([runBuildSolution]);
 		console.log(t1);
+		vscode.window.showInformationMessage('Start build solution from Dynamics CRM 365!');
 		setTimeout(() => {
 			var t2 = pss.process([runPackSolution]);
 			console.log(t2);
+			vscode.window.showInformationMessage('Finish build solution from Dynamics CRM 365!');
 		}, 5000);
-		vscode.window.showInformationMessage('Build solution from Dynamics CRM 365!');
+
 	});
 
 	context.subscriptions.push(disposable);
