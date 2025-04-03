@@ -14,17 +14,17 @@ const pSRunner = {
             error: boolean
         }[] = [];
         var spawn = require("child_process").spawn;
-        var child = spawn("powershell.exe", ['-Command', '-']);
+        var child = spawn("powershell.exe ", ['-ExecutionPolicy','Bypass', '-Command','-']); 
         child.stdout.on("data", function (data: any) {
             // @ts-ignore
             self.out.push(data.toString());
-            // console.log(data.toString());
+             console.log(data.toString());
         });
         child.stderr.on("data", function (data: any) {
             // @ts-ignore
             self.err.push(data.toString());
             self.error = true;
-            // console.log(data.toString());
+             console.log(data.toString());
         });
         child.on("exit", function () {
             self.finished = true;
